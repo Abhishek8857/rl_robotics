@@ -52,4 +52,5 @@ RUN pip3 install --upgrade pip && \
 
 
 # Default command
-CMD ["/bin/bash"]
+SHELL ["/bin/bash", "-c"]
+RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
