@@ -5,7 +5,7 @@ FROM nvcr.io/nvidia/isaac-sim:4.5.0
 ENV DEBIAN_FRONTEND=noninteractive \
     ACCEPT_EULA=Y \
     ROS_DISTRO=humble \
-    ISAACLAB_PATH=/workspace/IsaacLab \
+    ISAACLAB_PATH=/lab_workspace/IsaacLab \
     ROS_DOMAIN_ID=0
 
 
@@ -54,3 +54,15 @@ RUN pip3 install --upgrade pip && \
 # Default command
 SHELL ["/bin/bash", "-c"]
 RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+
+# Isaac lab installation
+WORKDIR /lab_workspace
+
+# Install Isaaclab
+RUN git clone https://github.com/isaac-sim/IsaacLab.git
+WORKDIR ${ISAACLAB_PATH}
+# Install Isaac Lab Python dependencies
+RUN pip3 install -r docs/requirements.txt
+
+WORKDIR /lab_workspace
+CMD ["/bin/bash"]
