@@ -6,34 +6,22 @@ ENV DEBIAN_FRONTEND=noninteractive \
     ACCEPT_EULA=Y \
     ROS_DISTRO=humble \
     ISAACLAB_PATH=/lab_workspace/IsaacLab \
-    ROS_DOMAIN_ID=0
+    ROS_DOMAIN_ID=0 \
+    LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:/usr/local/lib
+
 
 
 # Install dependencies and add ROS 2 apt key and source
 RUN apt-get update && \
-    apt-get install -y curl gnupg2 lsb-release && \
+    apt-get install -y curl gnupg2 lsb-release locales sudo git wget python3-pip && pip3 install -U colcon-common-extensions && \
     curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key | gpg --dearmor -o /usr/share/keyrings/ros-archive-keyring.gpg && \
     echo "deb [arch=amd64 signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" \
-    > /etc/apt/sources.list.d/ros2.list
-
-# Install dependencies
-RUN apt-get install -y --no-install-recommends \
-    locales \
-    sudo \
-    git \
-    wget \
-    python3-pip && \
-    pip3 install -U colcon-common-extensions \
-    && rm -rf /var/lib/apt/lists/*
+    > /etc/apt/sources.list.d/ros2.list && rm -rf /var/lib/apt/lists/*
 
 # Install ROS 2 Humble
 RUN apt-get update && apt-get install -y --no-install-recommends \
 ros-humble-ros-base \
 && rm -rf /var/lib/apt/lists/*
-
-# Source ROS 2 setup script
-SHELL ["/bin/bash", "-c"]
-RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 
 # Install Python packages for RL
 RUN pip3 install --upgrade pip && \
@@ -55,6 +43,15 @@ RUN pip3 install --upgrade pip && \
 SHELL ["/bin/bash", "-c"]
 RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 
+# Set Environment Variables
+ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp \
+    AMENT_PREFIX_PATH=/opt/ros/humble \
+    LD_LIBRARY_PATH=/isaac-sim/exts/isaacsim.ros2.bridge/humble/lib:$LD_LIBRARY_PATH
+
+# Copy entrypoint scripts and make them executable
+COPY entrypoint_scripts/ /entrypoint_scripts/
+RUN chmod +x /entrypoint_scripts/*.sh
+
 # Isaac lab installation
 WORKDIR /lab_workspace
 
@@ -64,5 +61,5 @@ WORKDIR ${ISAACLAB_PATH}
 # Install Isaac Lab Python dependencies
 RUN pip3 install -r docs/requirements.txt
 
-WORKDIR /lab_workspace
+WORKDIR /isaac-sim
 CMD ["/bin/bash"]
