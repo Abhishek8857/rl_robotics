@@ -9,8 +9,6 @@ ENV DEBIAN_FRONTEND=noninteractive \
     ROS_DOMAIN_ID=0 \
     LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:/usr/local/lib
 
-
-
 # Install dependencies and add ROS 2 apt key and source
 RUN apt-get update && \
     apt-get install -y curl gnupg2 lsb-release locales sudo git wget python3-pip && pip3 install -U colcon-common-extensions && \
@@ -20,23 +18,23 @@ RUN apt-get update && \
 
 # Install ROS 2 Humble
 RUN apt-get update && apt-get install -y --no-install-recommends \
-ros-humble-ros-base \
-&& rm -rf /var/lib/apt/lists/*
+    ros-humble-ros-base \
+    ros-humble-vision-msgs \
+    ros-humble-ackermann-msgs \
+    python3-rosdep \
+    python3-rosinstall \
+    python3-rosinstall-generator \
+    python3-wstool \
+    build-essential \
+    python3-colcon-common-extensions \
+    && rm -rf /var/lib/apt/lists/*
+
+# Update pip
+RUN pip install --upgrade pip 
 
 # Install Python packages for RL
-RUN pip3 install --upgrade pip && \
-    pip3 install \
-    torch==2.0.1 \
-    torchvision==0.15.2 \
-    torchaudio==2.0.2 \
-    stable-baselines3==2.0.0 \
-    tensorboard \
-    gym==0.26.2 \
-    matplotlib \
-    numpy \
-    pandas \
-    scipy \
-    scikit-learn
+RUN pip install torch==2.5.1 torchvision==0.20.1 --index-url https://download.pytorch.org/whl/cu121
+    # 'isaacsim[all,extscache]==4.5.0' -extra-index-url https://pypi.nvidia.com
 
 
 # Default command
@@ -52,14 +50,6 @@ ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp \
 COPY entrypoint_scripts/ /entrypoint_scripts/
 RUN chmod +x /entrypoint_scripts/*.sh
 
-# Isaac lab installation
-WORKDIR /lab_workspace
-
-# Install Isaaclab
-RUN git clone https://github.com/isaac-sim/IsaacLab.git
-WORKDIR ${ISAACLAB_PATH}
-# Install Isaac Lab Python dependencies
-RUN pip3 install -r docs/requirements.txt
-
 WORKDIR /isaac-sim
+
 CMD ["/bin/bash"]
