@@ -16,11 +16,19 @@ RUN apt-get update && \
     echo "deb [arch=amd64 signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" \
     > /etc/apt/sources.list.d/ros2.list && rm -rf /var/lib/apt/lists/*
 
+# Remove the conflicting repo that overrides system libraries
+RUN rm -f /etc/apt/sources.list.d/*sury* && apt-get update && \
+    apt-get install -y --allow-downgrades libbrotli1=1.0.9-2build6 && \
+    apt-mark hold libbrotli1
+
+RUN apt-get update && apt-get install -y 
+
 # Install ROS 2 Humble
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    ros-humble-ros-base \
+RUN apt-get update && apt-get install -y \
+    ros-humble-desktop \
+    libfreetype6-dev \
+    libfontconfig1-dev \
     ros-humble-vision-msgs \
-    ros-humble-ackermann-msgs \
     python3-rosdep \
     python3-rosinstall \
     python3-rosinstall-generator \
@@ -28,14 +36,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     python3-colcon-common-extensions \
     && rm -rf /var/lib/apt/lists/*
-
-# Update pip
-RUN pip install --upgrade pip 
-
-# Install Python packages for RL
-RUN pip install torch==2.5.1 torchvision==0.20.1 --index-url https://download.pytorch.org/whl/cu121
-    # 'isaacsim[all,extscache]==4.5.0' -extra-index-url https://pypi.nvidia.com
-
 
 # Default command
 SHELL ["/bin/bash", "-c"]
