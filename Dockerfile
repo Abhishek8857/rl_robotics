@@ -1,18 +1,11 @@
-# Accept the NVIDIA Omniverse EULA by default
+# Arguments
 ARG ACCEPT_EULA=Y
-# NVIDIA Isaac Sim base image
 ARG ISAACSIM_BASE_IMAGE=nvcr.io/nvidia/isaac-sim
-# NVIDIA Isaac Sim version to use (e.g. 4.5.0)
 ARG ISAACSIM_VERSION=4.5.0
-# Derived from the default path in the NVIDIA provided Isaac Sim container
 ARG DOCKER_ISAACSIM_ROOT_PATH=/isaac-sim
-# The Isaac Lab path in the container
 ARG DOCKER_ISAACLAB_PATH=/workspace/isaaclab
-# Docker user directory - by default this is the root user's home directory
 ARG DOCKER_USER_HOME=/root
-# Set the version of the ROS2 apt package to install (ros-base, desktop, desktop-full)
 ARG ROS2_APT_PACKAGE=ros-base
-# Path to cyclonedds.xml file to use 
 ARG CYCLONEDDS_URI=${DOCKER_USER_HOME}/.ros/cyclonedds.xml
 
 # Base image: NVIDIA's Isaac Sim 4.5
@@ -123,6 +116,9 @@ RUN --mount=type=cache,target=/var/cache/apt \
 # Copy entrypoint scripts and make them executable
 COPY entrypoint_scripts/ /entrypoint_scripts/
 RUN chmod +x /entrypoint_scripts/*.sh
+
+COPY overlay_ws/ /overlay_ws/
+RUN colcon build --symlink-install 
 
 WORKDIR /isaac-sim
 
