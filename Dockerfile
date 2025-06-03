@@ -27,6 +27,7 @@ USER root
 
 RUN --mount=type=cache,target=/var/cache/apt \
     apt-get update && apt-get install -y --no-install-recommends \
+    sudo \
     build-essential \
     cmake \
     git \
@@ -103,6 +104,7 @@ RUN --mount=type=cache,target=/var/cache/apt \
     ros-humble-vision-msgs \
     ros-humble-rmw-cyclonedds-cpp \
     ros-humble-rmw-fastrtps-cpp \
+    ros-humble-ackermann-msgs \
     ros-dev-tools && \
     # Install rosdeps for extensions that declare a ros_ws in their extension.toml
     ${ISAACLAB_PATH}/isaaclab.sh -p ${ISAACLAB_PATH}/tools/install_deps.py rosdep ${ISAACLAB_PATH}/source && \
@@ -117,8 +119,8 @@ RUN --mount=type=cache,target=/var/cache/apt \
 COPY entrypoint_scripts/ /entrypoint_scripts/
 RUN chmod +x /entrypoint_scripts/*.sh
 
-COPY overlay_ws/ /overlay_ws/
-RUN colcon build --symlink-install 
+# COPY overlay_ws/ /overlay_ws/
+# RUN colcon build --symlink-install 
 
 WORKDIR /isaac-sim
 
