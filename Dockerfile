@@ -119,8 +119,11 @@ RUN --mount=type=cache,target=/var/cache/apt \
 COPY entrypoint_scripts/ /entrypoint_scripts/
 RUN chmod +x /entrypoint_scripts/*.sh
 
-# COPY overlay_ws/ /overlay_ws/
-# RUN colcon build --symlink-install 
+COPY overlay_ws/ /overlay_ws/
+WORKDIR /overlay_ws/
+
+RUN source /opt/ros/humble/setup.bash && \
+    colcon build --symlink-install --cmake-clean-cache --event-handlers desktop_notification- status- --cmake-args -DCMAKE_BUILD_TYPE=Release
 
 WORKDIR /isaac-sim
 
