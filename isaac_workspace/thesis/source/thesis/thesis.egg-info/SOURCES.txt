@@ -1,0 +1,10 @@
+pyproject.toml
+setup.py
+thesis/__init__.py
+thesis/ui_extension_example.py
+thesis.egg-info/PKG-INFO
+thesis.egg-info/SOURCES.txt
+thesis.egg-info/dependency_links.txt
+thesis.egg-info/not-zip-safe
+thesis.egg-info/requires.txt
+thesis.egg-info/top_level.txt
