@@ -33,6 +33,7 @@ RUN --mount=type=cache,target=/var/cache/apt \
     git \
     libglib2.0-0 \
     ncurses-term \
+    ffmpeg \
     wget && \
     apt -y autoremove && apt clean autoclean && \
     rm -rf /var/lib/apt/lists/*
