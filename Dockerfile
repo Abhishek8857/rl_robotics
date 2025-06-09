@@ -126,6 +126,6 @@ WORKDIR /overlay_ws/
 RUN source /opt/ros/humble/setup.bash && \
     colcon build --symlink-install --cmake-clean-cache --event-handlers desktop_notification- status- --cmake-args -DCMAKE_BUILD_TYPE=Release
 
-WORKDIR /isaac-sim
+WORKDIR /rl_robotics
 
 CMD ["/bin/bash"]
