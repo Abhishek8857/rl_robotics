@@ -4,6 +4,6 @@
 [submodule "isaac_workspace/UR5_rl_env"]
 	path = isaac_workspace/UR5_rl_env
 	url = https://github.com/Abhishek8857/UR5_rl_env
-[submodule "UR5_direct"]
-	path = UR5_direct
+[submodule "isaac_workspace/UR5_direct"]
+	path = isaac_workspace/UR5_direct
 	url = https://github.com/Abhishek8857/UR5_direct.git
