@@ -1,9 +1,11 @@
-[submodule "IsaacLab"]
-	path = IsaacLab
-	url = https://github.com/isaac-sim/IsaacLab.git
 [submodule "isaac_workspace/UR5_rl_env"]
 	path = isaac_workspace/UR5_rl_env
 	url = https://github.com/Abhishek8857/UR5_rl_env
+	branch = master
 [submodule "isaac_workspace/UR5_direct"]
 	path = isaac_workspace/UR5_direct
 	url = https://github.com/Abhishek8857/UR5_direct.git
+	branch = master
+[submodule "IsaacLab"]
+	path = IsaacLab
+	url = https://github.com/Abhishek8857/IsaacLab.git
