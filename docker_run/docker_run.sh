@@ -17,6 +17,9 @@ docker run --name isaac-sim --entrypoint bash -it --runtime=nvidia --gpus all -e
     -e OMNI_KIT_ALLOW_ROOT=1 \
     -e DISPLAY=$DISPLAY \
     -v /dev:/dev \
+    -e XDG_SESSION_TYPE=x11 \
+    -e QT_X11_NO_MITSHM=1 \
+    -e RESOURCE_NAME="IsaacSim" \
     -v $HOME/.ros/log:/.ros/log \
     -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
     -e "PRIVACY_CONSENT=Y" \

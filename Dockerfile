@@ -106,7 +106,8 @@ RUN --mount=type=cache,target=/var/cache/apt \
     ros-humble-rmw-cyclonedds-cpp \
     ros-humble-rmw-fastrtps-cpp \
     ros-humble-ackermann-msgs \
-    ros-dev-tools && \
+    ros-dev-tools \
+    ros-humble-topic-based-ros2-control &&  \
     # Install rosdeps for extensions that declare a ros_ws in their extension.toml
     ${ISAACLAB_PATH}/isaaclab.sh -p ${ISAACLAB_PATH}/tools/install_deps.py rosdep ${ISAACLAB_PATH}/source && \
     apt -y autoremove && apt clean autoclean && \
@@ -115,7 +116,6 @@ RUN --mount=type=cache,target=/var/cache/apt \
     echo "source /opt/ros/humble/setup.bash" >> ${HOME}/.bashrc
 
 # COPY docker/.ros/ ${DOCKER_USER_HOME}/.ros/
-
 # Copy entrypoint scripts and make them executable
 COPY entrypoint_scripts/ /entrypoint_scripts/
 RUN chmod +x /entrypoint_scripts/*.sh
@@ -124,8 +124,11 @@ COPY overlay_ws/ /overlay_ws/
 WORKDIR /overlay_ws/
 
 RUN source /opt/ros/humble/setup.bash && \
-    colcon build --symlink-install --cmake-clean-cache --event-handlers desktop_notification- status- --cmake-args -DCMAKE_BUILD_TYPE=Release
-
+    colcon build --symlink-install \
+     --cmake-clean-cache \
+     --event-handlers desktop_notification- status- \
+     --cmake-args -DCMAKE_BUILD_TYPE=Release 
+     
 WORKDIR /isaac-sim
 
 CMD ["/bin/bash"]
