@@ -21,35 +21,29 @@ class TestROS2Bridge(Node):
         super().__init__("test_ros2bridge")
 
         # Create the publisher. This publisher will publish a JointState message to the /joint_command topic.
-        self.publisher_ = self.create_publisher(JointState, "joint_command", 10)
+        self.publisher_ = self.create_publisher(JointState, "isaac_joint_command", 10)
 
         # Create a JointState message
         self.joint_state = JointState()
 
         self.joint_state.name = [
-            "panda_joint1",
-            "panda_joint2",
-            "panda_joint3",
-            "panda_joint4",
-            "panda_joint5",
-            "panda_joint6",
-            "panda_joint7",
-            "panda_finger_joint1",
-            "panda_finger_joint2",
+            "joint_1",
+            "joint_2",
+            "joint_3",
+            "joint_4",
+            "joint_5",
+            "joint_6",
+            "joint_7",
+            "finger_joint",
         ]
 
         num_joints = len(self.joint_state.name)
 
-        # make sure kit's editor is playing for receiving messages
-        self.joint_state.position = np.array([0.0] * num_joints, dtype=np.float64).tolist()
-        self.default_joints = [0.0, -1.16, -0.0, -2.3, -0.0, 1.6, 1.1, 0.4, 0.4]
-
-        # limiting the movements to a smaller range (this is not the range of the robot, just the range of the movement
-        self.max_joints = np.array(self.default_joints) + 0.5
-        self.min_joints = np.array(self.default_joints) - 0.5
-
-        # position control the robot to wiggle around each joint
-        self.time_start = time.time()
+        # Kinova Gen3 home position (all zeros is a common safe home position)
+        self.default_joints = [0.0, 0.26, 0.0, 2.1, 0.0, 0.9, 1.57, 0.0]
+        
+        # Set the joint state to the home position
+        self.joint_state.position = self.default_joints
 
         timer_period = 0.05  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
@@ -57,13 +51,9 @@ class TestROS2Bridge(Node):
     def timer_callback(self):
         self.joint_state.header.stamp = self.get_clock().now().to_msg()
 
-        joint_position = (
-            np.sin(time.time() - self.time_start) * (self.max_joints - self.min_joints) * 0.5 + self.default_joints
-        )
-        self.joint_state.position = joint_position.tolist()
-
-        # Publish the message to the topic
+        # Publish the home position continuously
         self.publisher_.publish(self.joint_state)
+        print("Publishing home position:", self.joint_state.position)
 
 
 def main(args=None):
