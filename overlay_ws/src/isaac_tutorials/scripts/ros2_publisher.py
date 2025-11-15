@@ -40,7 +40,7 @@ class TestROS2Bridge(Node):
         num_joints = len(self.joint_state.name)
 
         # Kinova Gen3 home position (all zeros is a common safe home position)
-        self.default_joints = [0.0, 0.26, 0.0, 2.1, 0.0, 0.9, 1.57, 0.0]
+        self.default_joints = [0.0, 0.26, 0.0, 2.1, 0.0, 0.9, 1.57, 00.5]
         
         # Set the joint state to the home position
         self.joint_state.position = self.default_joints
