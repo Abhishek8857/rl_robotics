@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<robot name="material_cart" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- material_cart main -->
+  <link name="material_cart">
+    <visual>
+      <geometry>
+        <mesh filename="file:///objects/material_cart/meshes/material_cart.stl">
+          <scale>1 1 1</scale>
+        </mesh>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <!-- material_cart base -->
+  <link name="material_cart_base">
+  </link>
+
+  <joint name="material_cart_to_material_cart_base" type="fixed">
+    <origin xyz="0.0 0.0 -0.90" rpy="0 0 -1.5708"/>
+    <parent link="material_cart"/>
+    <child link="material_cart_base" />
+  </joint>
+
+  <!-- material_cart_pick_place 1-->
+  <link name="material_cart_pick_place_1">
+  </link>
+
+  <joint name="material_cart_to_material_cart_pick_place_1" type="fixed">
+    <origin xyz="0.25 -0.31 0.087" rpy="0 0 0"/>
+    <parent link="material_cart"/>
+    <child link="material_cart_pick_place_1" />
+  </joint>
+
+    <!-- material_cart_pick_place 2-->
+  <link name="material_cart_pick_place_2">
+  </link>
+
+  <joint name="material_cart_to_material_cart_pick_place_2" type="fixed">
+    <origin xyz="0.25 0.31 0.087" rpy="0 0 0"/>
+    <parent link="material_cart"/>
+    <child link="material_cart_pick_place_2" />
+  </joint>
+
+    <!-- material_cart_pick_place 3-->
+  <link name="material_cart_pick_place_3">
+  </link>
+
+  <joint name="material_cart_to_material_cart_pick_place_3" type="fixed">
+    <origin xyz="0.6 -0.31 -0.25" rpy="0 0 0"/>
+    <parent link="material_cart"/>
+    <child link="material_cart_pick_place_3" />
+  </joint>
+
+  <!-- material_cart_pick_place 4-->
+  <link name="material_cart_pick_place_4">
+  </link>
+
+  <joint name="material_cart_to_material_cart_pick_place_4" type="fixed">
+    <origin xyz="0.6 0.0 -0.25" rpy="0 0 0"/>
+    <parent link="material_cart"/>
+    <child link="material_cart_pick_place_4" />
+  </joint>
+
+  <!-- material_cart_pick_place 5-->
+  <link name="material_cart_pick_place_5">
+  </link>
+
+  <joint name="material_cart_to_material_cart_pick_place_5" type="fixed">
+    <origin xyz="0.6 0.31 -0.25" rpy="0 0 0"/>
+    <parent link="material_cart"/>
+    <child link="material_cart_pick_place_5" />
+  </joint>
+
+  <!-- material_cart approach pose  -->
+  <link name="material_cart_approach">
+      </link>
+
+  <joint name="base_to_approach" type="fixed">
+    <origin xyz="0.0 1.25 0.0" rpy="0 0 0"/>
+    <parent link="material_cart_base"/>
+    <child link="material_cart_approach" />
+  </joint>
+
+
+  <!-- material_cart center of 3D bounding box -->
+  <link name="material_cart_center_bb">
+    </link>
+
+  <joint name="base_plate_to_center_bb" type="fixed">
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+    <parent link="material_cart"/>
+    <child link="material_cart_center_bb" />
+  </joint>
+
+</robot>

@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<robot name="moveable_table" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- moveable_table main -->
+  <link name="moveable_table">
+    <visual>
+      <geometry>
+        <mesh filename="file:///objects/moveable_table/meshes/moveable_table.stl">
+          <scale>1 1 1</scale>
+        </mesh>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <!-- moveable_table base -->
+  <link name="moveable_table_base">
+  </link>
+
+  <joint name="moveable_table_to_moveable_table_base" type="fixed">
+    <origin xyz="0.0 0.0 -0.48744" rpy="0 0 0"/>
+    <parent link="moveable_table"/>
+    <child link="moveable_table_base" />
+  </joint>
+
+  <!-- moveable_table top -->
+  <link name="moveable_table_top">
+  </link>
+
+  <joint name="moveable_table_to_moveable_table_top" type="fixed">
+    <origin xyz="0.0 0.1 0.4084" rpy="0 0 0"/>
+    <parent link="moveable_table"/>
+    <child link="moveable_table_top" />
+  </joint>
+
+
+  <!-- moveable_table_pick_place 1-->
+  <link name="moveable_table_pick_place_1">
+  </link>
+
+  <joint name="moveable_table_top_to_moveable_table_pick_place_1" type="fixed">
+    <origin xyz="-0.35 0.0 0.0" rpy="0 0 0"/>
+    <parent link="moveable_table_top"/>
+    <child link="moveable_table_pick_place_1" />
+  </joint>
+
+  <!-- moveable_table_pick_place 2-->
+  <link name="moveable_table_pick_place_2">
+  </link>
+
+  <joint name="moveable_table_top_to_moveable_table_pick_place_2" type="fixed">
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+    <parent link="moveable_table_top"/>
+    <child link="moveable_table_pick_place_2" />
+  </joint>
+
+  <!-- moveable_table_pick_place 3-->
+  <link name="moveable_table_pick_place_3">
+  </link>
+
+  <joint name="moveable_table_top_to_moveable_table_pick_place_3" type="fixed">
+    <origin xyz="0.35 0.0 0.0" rpy="0 0 0"/>
+    <parent link="moveable_table_top"/>
+    <child link="moveable_table_pick_place_3" />
+  </joint>
+
+  <!-- moveable table approach pose  -->
+  <link name="moveable_table_approach">
+      </link>
+
+  <joint name="base_to_approach" type="fixed">
+    <origin xyz="0.0 -0.8 0.0" rpy="0 0 3.14159265359 "/>
+    <parent link="moveable_table_base"/>
+    <child link="moveable_table_approach" />
+  </joint>
+
+  <!-- moveable_table center of 3D bounding box -->
+  <link name="moveable_table_center_bb">
+    </link>
+
+  <joint name="base_plate_to_center_bb" type="fixed">
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+    <parent link="moveable_table"/>
+    <child link="moveable_table_center_bb" />
+  </joint>
+
+</robot>

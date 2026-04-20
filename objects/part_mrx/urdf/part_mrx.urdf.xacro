@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<robot name="part_mrx" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- part_mrx center of obj/stl -->
+  <link name="part_mrx">
+        <visual>
+        <geometry>
+          <mesh filename="file:///objects/part_mrx/meshes/part_mrx.stl">
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+        <material name="grey">
+          <color rgba="0.5 0.5 0.5 1.0"/>
+        </material>
+      </visual>
+  </link>
+
+  <!-- part_mrx grasping frame-->
+  <link name="part_mrx_grasping_frame">
+    </link>
+
+  <joint name="part_mrx_to_part_mrx_grasping_frame" type="fixed">
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+    <parent link="part_mrx"/>
+    <child link="part_mrx_grasping_frame" />
+  </joint>
+
+  <!-- part_mrx base -->
+  <link name="part_mrx_base">
+    </link>
+
+  <joint name="part_mrx_to_part_mrx_base" type="fixed">
+    <origin xyz="0.0 0.0 -0.03115" rpy="0 0 0"/>
+    <parent link="part_mrx"/>
+    <child link="part_mrx_base" />
+  </joint>
+
+</robot>

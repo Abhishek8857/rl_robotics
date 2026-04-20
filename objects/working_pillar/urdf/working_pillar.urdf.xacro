@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<robot name="working_pillar" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- working_pillar main -->
+  <link name="working_pillar">
+    <visual>
+      <geometry>
+        <mesh filename="file:///objects/working_pillar/meshes/working_pillar.stl">
+          <scale>1 1 1</scale>
+        </mesh>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <!-- working_pillar base -->
+  <link name="working_pillar_base">
+  </link>
+
+  <joint name="working_pillar_to_working_pillar_base" type="fixed">
+    <origin xyz="0.0 0.0 -1.07" rpy="0 0 0"/>
+    <parent link="working_pillar"/>
+    <child link="working_pillar_base" />
+  </joint>
+
+  <!-- working_pillar approach pose  -->
+  <link name="working_pillar_approach">
+      </link>
+
+  <joint name="base_to_approach" type="fixed">
+    <origin xyz="0.0 1.0 0.0" rpy="0 0 0"/>
+    <parent link="working_pillar_base"/>
+    <child link="working_pillar_approach" />
+  </joint>
+
+  <!-- working_pillar center of 3D bounding box -->
+  <link name="working_pillar_center_bb">
+    </link>
+
+  <joint name="base_plate_to_center_bb" type="fixed">
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+    <parent link="working_pillar"/>
+    <child link="working_pillar_center_bb" />
+  </joint>
+
+</robot>

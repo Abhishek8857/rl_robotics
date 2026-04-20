@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<robot name="table" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- table main link -->
+  <link name="table">
+    <visual>
+      <geometry>
+        <mesh filename="file:///objects/table/meshes/table.stl">
+          <scale>1 1 1</scale>
+        </mesh>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <!-- table base -->
+  <link name="table_base">
+      </link>
+
+  <joint name="table_to_table_base" type="fixed">
+    <origin xyz="0.0 0.0 -0.3245" rpy="0 0 0"/>
+    <parent link="table"/>
+    <child link="table_base" />
+  </joint>
+
+  <!-- table approach pose left -->
+  <link name="table_approach_left">
+      </link>
+
+  <joint name="base_to_approach_left" type="fixed">
+    <origin xyz="0.0 1.0 0.0" rpy="0 0 0"/>
+    <parent link="table_base"/>
+    <child link="table_approach_left" />
+  </joint>
+
+  <!-- table approach pose right -->
+  <link name="table_approach_right">
+      </link>
+
+  <joint name="base_to_approach_right" type="fixed">
+    <origin xyz="0.0 -1.0 0.0" rpy="0 0 3.14159265359"/>
+    <parent link="table_base"/>
+    <child link="table_approach_right" />
+  </joint>
+
+  <!-- table top -->
+  <link name="table_top">
+  </link>
+
+  <joint name="table_to_table_top" type="fixed">
+    <origin xyz="0.0 0.0 0.3245" rpy="0 0 0"/>
+    <parent link="table"/>
+    <child link="table_top" />
+  </joint>
+
+  <!-- table_pick_place 1-->
+  <link name="table_pick_place_1">
+  </link>
+
+  <joint name="table_top_to_table_pick_place_1" type="fixed">
+    <origin xyz="-0.35 0.1 0.0" rpy="0 0 0"/>
+    <parent link="table_top"/>
+    <child link="table_pick_place_1" />
+  </joint>
+
+  <!-- table_pick_place 2-->
+  <link name="table_pick_place_2">
+  </link>
+
+  <joint name="table_top_to_table_pick_place_2" type="fixed">
+    <origin xyz="0.0 0.1 0.0" rpy="0 0 0"/>
+    <parent link="table_top"/>
+    <child link="table_pick_place_2" />
+  </joint>
+
+  <!-- table_pick_place 3-->
+  <link name="table_pick_place_3">
+  </link>
+
+  <joint name="table_top_to_table_pick_place_3" type="fixed">
+    <origin xyz="0.35 0.1 0.0" rpy="0 0 0"/>
+    <parent link="table_top"/>
+    <child link="table_pick_place_3" />
+  </joint>
+  
+  <!-- table center of 3D bounding box -->
+  <link name="table_center_bb">
+    </link>
+
+  <joint name="table_to_center_bb" type="fixed">
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+    <parent link="table"/>
+    <child link="table_center_bb" />
+  </joint>
+
+</robot>

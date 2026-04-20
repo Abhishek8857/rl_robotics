@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<robot name="pallet" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- pallet center of obj/stl -->
+  <link name="pallet">
+        <visual>
+        <geometry>
+          <mesh filename="file:///objects/pallet/meshes/pallet.stl">
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+        <material name="grey">
+          <color rgba="0.5 0.5 0.5 1.0"/>
+        </material>
+      </visual>
+  </link>
+
+  <!-- pallet base -->
+  <link name="pallet_base">
+    </link>
+
+  <joint name="pallet_to_pallet_base" type="fixed">
+    <origin xyz="0.0 0.0 -0.011968" rpy="0 0 0"/>
+    <parent link="pallet"/>
+    <child link="pallet_base" />
+  </joint>
+
+</robot>

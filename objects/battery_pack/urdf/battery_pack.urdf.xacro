@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<robot name="battery_pack" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- battery_pack center of obj/stl -->
+  <link name="battery_pack">
+        <visual>
+        <origin rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="file:///objects/battery_pack/meshes/battery_pack.stl">
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+        <material name="grey">
+          <color rgba="0.5 0.5 0.5 1.0"/>
+        </material>
+      </visual>
+  </link>
+
+  <!-- battery_pack grasping_frame -->
+  <link name="battery_pack_grasping_frame">
+    </link>
+
+  <joint name="battery_pack_to_battery_pack_grasping_frame" type="fixed">
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+    <parent link="battery_pack"/>
+    <child link="battery_pack_grasping_frame" />
+  </joint>
+
+  <!-- battery_pack base -->
+  <link name="battery_pack_base">
+    </link>
+
+  <joint name="battery_pack_to_battery_pack_base" type="fixed">
+    <origin xyz="0.0 0.0 -0.1015" rpy="0 0 0"/>
+    <parent link="battery_pack"/>
+    <child link="battery_pack_base" />
+  </joint>
+
+</robot>

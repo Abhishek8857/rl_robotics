@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<robot name="screw_m36" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- screw_m36 center of obj/stl -->
+  <link name="screw_m36">
+        <visual>
+        <geometry>
+          <mesh filename="file:///objects/screw_m36/meshes/screw_m36.stl">
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+        <material name="grey">
+          <color rgba="0.5 0.5 0.5 1.0"/>
+        </material>
+      </visual>
+  </link>
+
+  <!-- screw_m36 base -->
+  <link name="screw_m36_base">
+    </link>
+
+  <joint name="screw_m36_to_screw_m36_base" type="fixed">
+    <origin xyz="0.0 0.0 -0.011968" rpy="0 0 0"/>
+    <parent link="screw_m36"/>
+    <child link="screw_m36_base" />
+  </joint>
+
+</robot>

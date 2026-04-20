@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<robot name="butter" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- butter center of obj/stl -->
+  <link name="butter">
+        <visual>
+        <geometry>
+          <mesh filename="file:///objects/butter/meshes/butter.stl">
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+        <material name="grey">
+          <color rgba="0.5 0.5 0.5 1.0"/>
+        </material>
+      </visual>
+  </link>
+
+
+  <!-- butter grasping_frame -->
+  <link name="butter_grasping_frame">
+    </link>
+
+  <joint name="butter_to_butter_grasping_frame" type="fixed">
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+    <parent link="butter"/>
+    <child link="butter_grasping_frame" />
+  </joint>
+
+
+  <!-- butter base -->
+  <link name="butter_base">
+    </link>
+
+  <joint name="butter_to_butter_base" type="fixed">
+    <origin xyz="0.0 0.0 -0.011968" rpy="0 0 0"/>
+    <parent link="butter"/>
+    <child link="butter_base" />
+  </joint>
+
+</robot>

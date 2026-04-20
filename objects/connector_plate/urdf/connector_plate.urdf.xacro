@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<robot name="connector_plate" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- connector_plate center of obj/stl -->
+  <link name="connector_plate">
+        <visual>
+        <geometry>
+          <mesh filename="file:///objects/connector_plate/meshes/connector_plate.stl">
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+        <material name="blue">
+          <color rgba="0.0 0.02 0.45 1.0"/>
+        </material>
+      </visual>
+  </link>
+
+
+  <!-- connector_plate grasping_frame -->
+  <link name="connector_plate_grasping_frame">
+    </link>
+
+  <joint name="connector_plate_to_connector_plate_grasping_frame" type="fixed">
+    <origin xyz="0.0 0.0 0.01" rpy="0 0 1.5708"/>
+    <parent link="connector_plate"/>
+    <child link="connector_plate_grasping_frame" />
+  </joint>
+
+
+  <!-- connector_plate base -->
+  <link name="connector_plate_base">
+    </link>
+
+  <joint name="connector_plate_to_connector_plate_base" type="fixed">
+    <origin xyz="0.0 0.0 -0.025" rpy="0 0 0"/>
+    <parent link="connector_plate"/>
+    <child link="connector_plate_base" />
+  </joint>
+
+
+  <!-- connector_plate assembly -->
+  <link name="connector_plate_assembly_t_connector">
+    </link>
+
+  <joint name="connector_plate_to_connector_plate_assembly_t_connector" type="fixed">
+    <origin xyz="0.0 0.0 -0.015" rpy="0 0 0"/>
+    <parent link="connector_plate"/>
+    <child link="connector_plate_assembly_t_connector" />
+  </joint>
+
+
+  <!-- connector_plate to t_connector -->
+  <link name="t_connector">
+    </link>
+
+  <joint name="connector_plate_assembly_t_connector_to_t_connector" type="fixed">
+    <origin xyz="0.0 0.0 0.0264" rpy="0 0 0"/> <!-- height from t_connector.urdf.xacro -->
+    <parent link="connector_plate_assembly_t_connector"/>
+    <child link="t_connector" />
+  </joint>
+
+</robot>
