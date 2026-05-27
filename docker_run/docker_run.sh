@@ -37,6 +37,6 @@ docker run --name isaac-sim --entrypoint bash -it --runtime=nvidia --gpus all -e
     -v ~/docker/isaac-sim/omniverse:/root/.nvidia-omniverse/omniverse:rw \
     -v ~/docker/isaac-sim/config-ov:/root/.config/ov:rw \
     -v "$REPO_DIR:/rl_robotics:rw" \
-    -v $PARENT_DIR:/root/workspaces/s:rw \
+    -v $PARENT_DIR:/root/workspaces/:rw \
     rl-robotics \
     /entrypoint_scripts/entrypoint_docker_run.sh
